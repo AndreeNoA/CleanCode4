@@ -19,12 +19,7 @@ namespace WriteApi.Controllers
         {
             repo = context;
         }
-        //[HttpGet]
-        //[ProducesResponseType(typeof(List<Message>), (int)HttpStatusCode.OK)]
-        //public IActionResult Get()
-        //{
-        //    return Ok(repo.GetAllMessages());
-        //}
+
         [HttpPost]
         public List<Message> AddMessage(Message msg)
         {
