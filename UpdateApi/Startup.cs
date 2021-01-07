@@ -11,11 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using ReadApi.Data.Repository;
-using Database.Database;
 
-namespace ReadApi
+namespace UpdateApi
 {
     public class Startup
     {
@@ -29,15 +26,11 @@ namespace ReadApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ReadContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
-
-
-            services.AddScoped<IReadRepository, ReadRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReadApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UpdateApi", Version = "v1" });
             });
         }
 
@@ -48,7 +41,7 @@ namespace ReadApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReadApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UpdateApi v1"));
             }
 
             app.UseHttpsRedirection();

@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ReadApi.Data.Database;
+﻿using Database.Models;
+using Microsoft.AspNetCore.Mvc;
 using ReadApi.Data.Repository;
-using ReadApi.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

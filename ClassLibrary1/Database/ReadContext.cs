@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ReadApi.Domain;
+using Database.Models;
 
-namespace ReadApi.Data.Database
+namespace Database.Database
 {
     public class ReadContext : DbContext
     {
         public ReadContext()
         {
-
         }
 
         public ReadContext(DbContextOptions<ReadContext> options) : base(options)

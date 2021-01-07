@@ -9,8 +9,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ReadApi.Domain\ReadApi.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

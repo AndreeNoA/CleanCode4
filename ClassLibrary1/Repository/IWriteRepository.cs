@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReadApi.Data.Repository
+namespace Database.Repository
 {
-    public interface IReadRepository
+    public interface IWriteRepository
     {
-        List<Message> GetAllMessages();
+        List<Message> AddMessage(Message msg);
     }
 }

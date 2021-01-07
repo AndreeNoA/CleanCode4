@@ -6,20 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReadApi.Data.Repository
+namespace Database.Repository
 {
-    public class ReadRepository : IReadRepository
+    public class WriteRepository : IWriteRepository
     {
         List<Message> msg;
         private readonly ReadContext _context;
 
-        public ReadRepository(ReadContext context)
+        public WriteRepository(ReadContext context)
         {
             _context = context;
             msg = _context.Messages.ToList();
         }
-        public List<Message> GetAllMessages()
+        public List<Message> AddMessage(Message mes)
         {
+            msg.Add(new Message { Author = mes.Author, Text = mes.Text, Id = mes.Id });
             return msg;
         }
     }
