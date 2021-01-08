@@ -11,10 +11,12 @@ services:
   debug.read:
     image: ${DOCKER_REGISTRY-}debugread
     ports:
-       -   "8080:80"
+       -   "80:80"
     build:
       context: .
       dockerfile: Debug.Read/Dockerfile
+    depends_on:
+        - db
 
 
   debug.create:
@@ -24,8 +26,8 @@ services:
       dockerfile: Debug.Create/Dockerfile
 
 
-  debug.update:
-    image: ${DOCKER_REGISTRY-}debugupdate
-    build:
-      context: .
-      dockerfile: Debug.Update/Dockerfile
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: 1Secure*Password1
+        ACCEPT_EULA: "Y"

@@ -1,4 +1,3 @@
-using Database.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using ReadApi.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +26,11 @@ namespace Debug.Read
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ReadContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+            //var connection = @"Server=db;Database=master;User=sa;Password=Your_password123;";
 
-            services.AddScoped<IReadRepository, ReadRepository>();
+            services.AddDbContext<ApplicationDbContext>(options => options
+                .UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
