@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  frontend:
+    image: ${DOCKER_REGISTRY-}frontend
+    build:
+      context: .
+      dockerfile: FrontEnd/Dockerfile
+
+
+  debug.read:
+    image: ${DOCKER_REGISTRY-}debugread
+    ports:
+       -   "8080:80"
+    build:
+      context: .
+      dockerfile: Debug.Read/Dockerfile
+
+
+  debug.create:
+    image: ${DOCKER_REGISTRY-}debugcreate
+    build:
+      context: .
+      dockerfile: Debug.Create/Dockerfile
+
+
+  debug.update:
+    image: ${DOCKER_REGISTRY-}debugupdate
+    build:
+      context: .
+      dockerfile: Debug.Update/Dockerfile
