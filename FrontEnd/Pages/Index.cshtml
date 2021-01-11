@@ -16,6 +16,8 @@
             </tr>
         </thead>
         <tbody>
+            @if (Model.messages != null)
+            {
             @foreach (var x in Model.messages)
             {
             <tr>
@@ -23,6 +25,7 @@
                 <td>@x.Text</td>
                 <td>@x.Author</td>
             </tr>
+            }
             }
         </tbody>
     </table>

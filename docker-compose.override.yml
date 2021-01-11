@@ -24,3 +24,17 @@ services:
     ports:
       - "80"
 
+
+  debug.database:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  debug.update:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

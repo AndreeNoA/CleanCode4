@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace FrontEnd.Pages
@@ -21,10 +22,10 @@ namespace FrontEnd.Pages
 
         public async Task OnGet()
         {
-            using (var client = new System.Net.Http.HttpClient())
+            using (var client = new HttpClient())
             {
-                var request = new System.Net.Http.HttpRequestMessage();
-                request.RequestUri = new Uri("http://debug.read/Notes");
+                var request = new HttpRequestMessage();
+                request.RequestUri = new Uri("http://debug.read/Read");
                 var response = await client.SendAsync(request);
                 var responseAsString = await response.Content.ReadAsStringAsync();
                 messages = JsonConvert.DeserializeObject<List<Message>>(responseAsString);

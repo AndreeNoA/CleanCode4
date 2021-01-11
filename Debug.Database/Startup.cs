@@ -1,3 +1,4 @@
+using Debug.Database.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Debug.Read
+namespace Debug.Database
 {
     public class Startup
     {
@@ -26,13 +27,12 @@ namespace Debug.Read
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-
+            services.AddDbContext<ApplicationDbContext>(options => options
+                .UseSqlite(@"Filename=BugDb.db"));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Debug.Read", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Debug.Database", Version = "v1" });
             });
         }
 
@@ -43,7 +43,7 @@ namespace Debug.Read
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Debug.Read v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Debug.Database v1"));
             }
 
             app.UseRouting();
