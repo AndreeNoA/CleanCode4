@@ -6,7 +6,27 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <p>@ViewData["Message"]</p>
-</div>
 
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Text</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.messages)
+            {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.Text</td>
+                <td>@x.Author</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+</div>

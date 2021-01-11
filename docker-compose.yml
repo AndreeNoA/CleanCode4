@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: FrontEnd/Dockerfile
+    depends_on:
+        - db
 
 
   debug.read:
