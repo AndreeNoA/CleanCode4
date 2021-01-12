@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,21 +37,14 @@ namespace FrontEnd.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostCreateAsync()
+        public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            await CreateBug();
-            return Page();
-        }
-
-        public async Task<bool> CreateBug()
-        {
-            using (var client = new HttpClient())
-            {
-                var request = new HttpRequestMessage();
-                request.RequestUri = new Uri("http://debug.create/Create");
-                var response = await client.SendAsync(request);
-            }
-            return true;
+            var rClient = new RestClient("http://debug.update/update");
+            var request = new RestRequest(Method.DELETE);
+            request.RequestFormat = DataFormat.Json;
+            request.AddJsonBody(id);
+            var x = rClient.Execute(request);
+            return RedirectToPage("Index");   
         }
     }
 }

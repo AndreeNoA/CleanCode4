@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug.Read", "Debug.Read\De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug.Create", "Debug.Create\Debug.Create.csproj", "{9C7F2474-0E13-4CD4-8153-67AEC0F8FAA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug.Database", "Debug.Database\Debug.Database.csproj", "{57BFA842-6ACE-4204-887D-F957D4A913E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug.Database", "Debug.Database\Debug.Database.csproj", "{57BFA842-6ACE-4204-887D-F957D4A913E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug.Update", "Debug.Update\Debug.Update.csproj", "{7E30E1DB-55D3-4777-9159-56F9F968C384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug.Update", "Debug.Update\Debug.Update.csproj", "{7E30E1DB-55D3-4777-9159-56F9F968C384}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

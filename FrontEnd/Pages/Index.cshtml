@@ -18,18 +18,22 @@
         <tbody>
             @if (Model.messages != null)
             {
-            @foreach (var x in Model.messages)
+            @foreach (var message in Model.messages)
             {
             <tr>
-                <td>@x.Id</td>
-                <td>@x.Text</td>
-                <td>@x.Author</td>
+                <td>@message.Id</td>
+                <td>@message.Text</td>
+                <td>@message.Author</td>
+                <td><a class="btn alert-danger" asp-page="./Edit" asp-route-id="@message.Id">Edit</a></td>
+                <td>
+                    <form method="post">
+                        <button asp-route-id="@message.Id" type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
             }
             }
         </tbody>
     </table>
-
-    <a asp-page-handler="Create">Create</a>
 
 </div>

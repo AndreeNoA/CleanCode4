@@ -22,13 +22,12 @@ namespace Debug.Create.Controllers
         }
     
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post([FromBody]Message newMessage)
         {
-            var newMsg = new Message() { Author = "Andreé", Id = new Guid(), Text = "test" };
             var rClient = new RestClient("http://debug.database/database/db");
             var request1 = new RestRequest("/create", Method.POST);
             request1.RequestFormat = DataFormat.Json;
-            request1.AddJsonBody(newMsg);
+            request1.AddJsonBody(newMessage);
             var response1 = rClient.Execute(request1);
 
             return Ok();

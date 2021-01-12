@@ -42,12 +42,21 @@ namespace Debug.Database.Controllers
 
         [HttpPut]
         [Route("db/update")]
-        public async Task<IActionResult> UpdateBug(string id, string updatedText)
+        public async Task<IActionResult> UpdateBug([FromBody]Message message)
+        {
+            var msg = _db.Messages.Where(x => x.Id == message.Id).FirstOrDefault();
+            msg.Text = message.Text;
+            await _db.SaveChangesAsync();
+
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("db/delete")]
+        public async Task<IActionResult> DeleteBug(string id)
         {
             var guidId = Guid.Parse(id);
-
-            var msg = _db.Messages.Where(x => x.Id == guidId).FirstOrDefault();
-            msg.Text = updatedText;
+            var msg = await _db.Messages.Where(x => x.Id == guidId).ToListAsync();
+            _db.RemoveRange(msg);
             _db.SaveChanges();
 
             return Ok();
