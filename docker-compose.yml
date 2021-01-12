@@ -3,36 +3,54 @@ version: '3.4'
 services:
   frontend:
     image: ${DOCKER_REGISTRY-}frontend
+    ports:
+       -   "1234:80"
     build:
       context: .
       dockerfile: FrontEnd/Dockerfile
-
+    networks:
+        - my-network
 
   debug.read:
     image: ${DOCKER_REGISTRY-}debugread
     ports:
-       -   "80:80"
+       -   "1337:80"
     build:
       context: .
       dockerfile: Debug.Read/Dockerfile
-
+    networks:
+        - my-network
 
   debug.create:
     image: ${DOCKER_REGISTRY-}debugcreate
+    ports:
+        - "1336:80"
     build:
       context: .
       dockerfile: Debug.Create/Dockerfile
+    networks:
+        - my-network
 
   debug.database:
     image: ${DOCKER_REGISTRY-}debugdatabase
+    ports:
+       -   "1335:80"
     build:
       context: .
       dockerfile: Debug.Database/Dockerfile
-
+    networks:
+        - my-network
 
   debug.update:
     image: ${DOCKER_REGISTRY-}debugupdate
+    ports:
+       -   "1334:80"
     build:
       context: .
       dockerfile: Debug.Update/Dockerfile
+    networks:
+        - my-network
 
+networks:
+  my-network:
+    external: false

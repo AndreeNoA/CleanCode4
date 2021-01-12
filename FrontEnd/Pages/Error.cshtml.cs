@@ -24,9 +24,9 @@ namespace FrontEnd.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
         }
     }
 }

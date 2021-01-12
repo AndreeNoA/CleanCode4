@@ -2,6 +2,7 @@
 using Debug.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Debug.Database.Controllers
     
     [ApiController]
     [Route("[controller]")]
-    public class DatabaseController
+    public class DatabaseController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
     
@@ -29,23 +30,27 @@ namespace Debug.Database.Controllers
     
             return new JsonResult(notes);
         }
-        [HttpDelete("{id}")]
-        [Route("db")]
-        public async Task<IActionResult> DeleteById(Guid id)
-        {
-            return new OkObjectResult("Done");
-        }
+
         [HttpPost]
-        [Route("db")]
-        public IActionResult SaveToDb(Message message)
+        [Route("db/create")]
+        public IActionResult SaveToDb([FromBody]Message msg)
         {
-            return new OkObjectResult("Done");
+            _db.Add(msg);
+            _db.SaveChanges();
+            return Ok();
         }
-        [HttpPost("{id}")]
-        [Route("db")]
-        public async Task<IActionResult> UpdateBug(Guid id)
+
+        [HttpPut]
+        [Route("db/update")]
+        public async Task<IActionResult> UpdateBug(string id, string updatedText)
         {
-            return new OkObjectResult("Done");
+            var guidId = Guid.Parse(id);
+
+            var msg = _db.Messages.Where(x => x.Id == guidId).FirstOrDefault();
+            msg.Text = updatedText;
+            _db.SaveChanges();
+
+            return Ok();
         }
     }
 
