@@ -28,23 +28,14 @@ namespace Debug.Read.Controllers
             var dbResponse = await client.GetAsync("http://debug.database/database/db");
             var dbResponseAsString = await dbResponse.Content.ReadAsStringAsync();
             List<Message> messages = JsonConvert.DeserializeObject<List<Message>>(dbResponseAsString);
-            return Ok(messages);
+            if (dbResponse.IsSuccessStatusCode)
+            {
+                return Ok(messages);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    var notes = await _db.Messages.ToListAsync();
-        //
-        //    return new JsonResult(notes);
-        //}
-        //
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(Guid id)
-        //{
-        //    var note = await _db.Messages.FirstOrDefaultAsync(n => n.Id == id);
-        //
-        //    return new JsonResult(note);
-        //}
     }
-
 }

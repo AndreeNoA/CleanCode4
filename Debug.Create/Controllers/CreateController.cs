@@ -13,9 +13,8 @@ namespace Debug.Create.Controllers
     [ApiController]
     [Route("[controller]")]
     public class CreateController : ControllerBase
-    {
-        HttpClient client = new HttpClient();
-        
+    {    
+        public RestClient RestClient = new RestClient("http://debug.database/database/db");
         public CreateController()
         {
            
@@ -24,15 +23,18 @@ namespace Debug.Create.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Message newMessage)
         {
-            var rClient = new RestClient("http://debug.database/database/db");
-            var request1 = new RestRequest("/create", Method.POST);
-            request1.RequestFormat = DataFormat.Json;
-            request1.AddJsonBody(newMessage);
-            var response1 = rClient.Execute(request1);
-
-            return Ok();
+            var restRequest = new RestRequest("/create", Method.POST);
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddJsonBody(newMessage);
+            var executeResponse = RestClient.Execute(restRequest);
+            if (executeResponse.IsSuccessful)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
-    
     }
-
 }

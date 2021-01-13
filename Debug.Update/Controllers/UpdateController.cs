@@ -13,8 +13,7 @@ namespace Debug.Update.Controllers
     [Route("[controller]")]
     public class UpdateController : ControllerBase
     {
-        HttpClient client = new HttpClient();
-
+        public RestClient RestClient = new RestClient("http://debug.database/database/db");
         public UpdateController()
         {
 
@@ -23,22 +22,34 @@ namespace Debug.Update.Controllers
         [HttpPut]
         public async Task<IActionResult> GetAll([FromBody]Message message)
         {
-            var rClient = new RestClient("http://debug.database/database/db");
-            var request1 = new RestRequest("/update", Method.PUT);
-            request1.RequestFormat = DataFormat.Json;
-            request1.AddJsonBody(message);
-            var response1 = rClient.Execute(request1);
-            return Ok();
+            var restRequest = new RestRequest("/update", Method.PUT);
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddJsonBody(message);
+            var executeResponse = RestClient.Execute(restRequest);
+            if (executeResponse.IsSuccessful)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteById([FromBody]Guid id)
         {
-            var rClient = new RestClient("http://debug.database/database/db");
-            var request1 = new RestRequest("/delete", Method.DELETE);
-            request1.RequestFormat = DataFormat.Json;
-            request1.AddQueryParameter("id", id.ToString());
-            var response1 = rClient.Execute(request1);
-            return Ok();
+            var restRequest = new RestRequest("/delete", Method.DELETE);
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddQueryParameter("id", id.ToString());
+            var executeResponse = RestClient.Execute(restRequest);
+            if (executeResponse.IsSuccessful)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

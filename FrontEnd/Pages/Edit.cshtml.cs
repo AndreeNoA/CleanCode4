@@ -14,6 +14,7 @@ namespace FrontEnd.Pages
         public Message Message { get; set; }
         [BindProperty]
         public Guid PickedId { get; set; }
+        public RestClient RestClient = new RestClient("http://debug.update/update");
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -22,16 +23,21 @@ namespace FrontEnd.Pages
                 Id = PickedId,
                 Text = Message.Text
             };
-            var rClient = new RestClient("http://debug.update/update");
-            var request1 = new RestRequest(Method.PUT);
-            request1.RequestFormat = DataFormat.Json;
-            request1.AddJsonBody(message);
-            var response1 = rClient.Execute(request1);
-            return RedirectToPage("Index");
+            var restRequest = new RestRequest(Method.PUT);
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddJsonBody(message);
+            var executeResponse = RestClient.Execute(restRequest);
+            if (executeResponse.IsSuccessful)
+            {
+                return RedirectToPage("Index");
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         public void OnGet(Guid id)
         {
-            var x = id;
             this.PickedId = id;
         }
     }

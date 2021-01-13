@@ -12,6 +12,7 @@ namespace FrontEnd.Pages
     {
         [BindProperty]
         public Message Message { get; set; }
+        public RestClient RestClient = new RestClient("http://debug.create/create");
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -23,16 +24,18 @@ namespace FrontEnd.Pages
                 Author = Message.Author
             };
 
-            var rClient = new RestClient("http://debug.create/create");
-            var request1 = new RestRequest(Method.POST);
-            request1.RequestFormat = DataFormat.Json;
-            request1.AddJsonBody(message);
-            var response1 = rClient.Execute(request1);
-            return RedirectToPage("Index");
-        }
-
-        public void OnGet()
-        {
+            var restRequest = new RestRequest(Method.POST);
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddJsonBody(message);
+            var executeResponse = RestClient.Execute(restRequest);
+            if (executeResponse.IsSuccessful)
+            {
+                return RedirectToPage("Index");
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
